@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication(scanBasePackages = {
-        "hugo.learning.java.model",
-        "hugo.learning.java.spring"
+        "hugo.learning.java.*"
 })
 @EnableCaching
 public class Application {
