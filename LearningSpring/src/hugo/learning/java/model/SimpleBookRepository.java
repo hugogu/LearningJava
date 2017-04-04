@@ -32,6 +32,11 @@ public class SimpleBookRepository implements BookRepository {
         return Math.sqrt(value);
     }
 
+    public double sqrt2(double value) {
+        LOG.info("Call sqrt2 of {}", value);
+        return Math.sqrt(value);
+    }
+
     public static double rounding(double value) {
          return (double) Math.round(value);
     }

@@ -22,6 +22,7 @@ public abstract class AppRunner implements CommandLineRunner {
         logger.info("2.01 --> " + repo.sqrt(2.01));
         logger.info("2.02 --> " + repo.sqrt(2.02));
         logger.info("2.03 --> " + repo.sqrt(2.03));
+        logger.info("2.03 --> " + repo.sqrt2(2.03));
         logger.info("3.00 --> " + repo.sqrt(3.00));
 
         logger.info(".... Fetching books");

@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.net.URISyntaxException;
 
@@ -26,6 +27,7 @@ import java.net.URISyntaxException;
         "hugo.learning.java.*"
 })
 @EnableCaching
+@EnableAspectJAutoProxy
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
