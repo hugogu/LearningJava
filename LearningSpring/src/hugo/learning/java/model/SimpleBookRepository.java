@@ -32,6 +32,8 @@ public class SimpleBookRepository implements BookRepository {
         return Math.sqrt(value);
     }
 
+    @Override
+    @Cacheable(value = "math", key = "T(hugo.learning.java.model.SimpleBookRepository).rounding(#value)")
     public double sqrt2(double value) {
         LOG.info("Call sqrt2 of {}", value);
         return Math.sqrt(value);
