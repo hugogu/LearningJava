@@ -19,7 +19,7 @@ public class SimpleBookRepository implements BookRepository {
     // This uses Spring annotation, JSR-107 defined another set of annotations for JCache.
     // https://spring.io/blog/2014/04/14/cache-abstraction-jcache-jsr-107-annotations-support
     @Override
-    @Cacheable("books")
+    @Cacheable(value = "books", keyGenerator = "bookKeyGenerator")
     public Book getByIsbn(String isbn) {
         simulateSlowService();
         return new Book(isbn, "Some book");
