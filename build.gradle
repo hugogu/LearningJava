@@ -10,7 +10,10 @@ repositories {
 }
 
 dependencies {
+    compile 'org.aspectj:aspectjrt:1.8.10'
+    compile 'org.aspectj:aspectjweaver:1.8.10'
     compile 'org.springframework:spring-context:4.3.7.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-aop:1.5.2.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-cache:1.5.2.RELEASE'
     compile 'javax.cache:cache-api:1.0.0'
