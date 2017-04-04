@@ -1,7 +1,12 @@
 <config xmlns='http://www.ehcache.org/v3'
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
         xsi:schemaLocation="
-        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
+        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+        http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+    <service>
+        <jsr107:defaults enable-management="true" enable-statistics="true" />
+    </service>
     <cache alias="books">
         <key-type>java.lang.Object</key-type>
         <value-type>java.lang.Object</value-type>
@@ -9,5 +14,15 @@
             <tti unit="seconds">2</tti>
         </expiry>
         <heap unit="entries">10</heap>
+        <jsr107:mbeans enable-management="false" enable-statistics="false" />
+    </cache>
+    <cache alias="math">
+        <key-type>java.lang.Object</key-type>
+        <value-type>java.lang.Object</value-type>
+        <expiry>
+            <tti unit="seconds">10</tti>
+        </expiry>
+        <heap unit="entries">10</heap>
+        <jsr107:mbeans enable-management="false" enable-statistics="false" />
     </cache>
 </config>

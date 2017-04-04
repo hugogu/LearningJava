@@ -25,10 +25,21 @@ public class SimpleBookRepository implements BookRepository {
         return new Book(isbn, "Some book");
     }
 
+    @Override
+    @Cacheable(value = "math", key = "T(hugo.learning.java.model.SimpleBookRepository).rounding(#value)")
+    public double sqrt(double value) {
+        LOG.info("Call sqrt of {}", value);
+        return Math.sqrt(value);
+    }
+
+    public static double rounding(double value) {
+         return (double) Math.round(value);
+    }
+
     // Don't do this at home
     private void simulateSlowService() {
         try {
-            long time = 3000L;
+            long time = 1000L;
             Thread.sleep(time);
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);
