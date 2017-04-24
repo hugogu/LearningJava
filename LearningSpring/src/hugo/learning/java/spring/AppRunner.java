@@ -1,6 +1,7 @@
 package hugo.learning.java.spring;
 
 import hugo.learning.java.model.BookRepository;
+import hugo.learning.java.services.Calculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Lookup;
@@ -15,6 +16,9 @@ public abstract class AppRunner implements CommandLineRunner {
     @Lookup
     public abstract BookRepository getBookRepository();
 
+    @Lookup
+    public abstract Calculator getCalculator();
+
     @Override
     public void run(String... args) throws Exception {
         final BookRepository repo = getBookRepository();
@@ -24,6 +28,9 @@ public abstract class AppRunner implements CommandLineRunner {
         logger.info("2.03 --> " + repo.sqrt(2.03));
         logger.info("2.03 --> " + repo.sqrt2(2.03));
         logger.info("3.00 --> " + repo.sqrt(3.00));
+        logger.info("4.004 --> " + getCalculator().sqrt3(4.004));
+        logger.info("4.002 --> " + getCalculator().sqrt3(4.002));
+
 
         logger.info(".... Fetching books");
         logger.info("isbn-1234 -->" + repo.getByIsbn("isbn-1234"));

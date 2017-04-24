@@ -8,6 +8,7 @@ import javax.cache.expiry.CreatedExpiryPolicy;
 import javax.cache.expiry.Duration;
 import javax.cache.spi.CachingProvider;
 
+import com.google.common.collect.Lists;
 import org.ehcache.config.CacheRuntimeConfiguration;
 import org.ehcache.config.ResourcePools;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
@@ -18,6 +19,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.support.SimpleCacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -40,6 +43,7 @@ public class Application {
         return cachingProvider.getCacheManager(getClass().getResource("/ehcache.xml").toURI(), getClass().getClassLoader());
     }
 
+    // When getCachemanager is used, this getCacheManagerCustomizer will not be called.
     @Bean
     public JCacheManagerCustomizer getCacheManagerCustomizer() {
         // Spring only support Object->Object cache.
@@ -60,7 +64,12 @@ public class Application {
                         .setStoreByValue(false)
                         .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
 
-        return manager.createCache("books", configuration);
+        final Cache<K, V> existingCache = manager.getCache("books", keyClass, valueClass);
+        if (existingCache == null) {
+            return manager.createCache("books", configuration);
+        } else {
+            return existingCache;
+        }
     }
 
     private <K, V> void configEhCacheViaCode(final Cache<K, V> cache) {
