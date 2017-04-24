@@ -18,11 +18,13 @@ import org.ehcache.jsr107.Eh107Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.net.URISyntaxException;
 
@@ -31,6 +33,12 @@ import java.net.URISyntaxException;
 })
 @EnableCaching
 @EnableAspectJAutoProxy
+@EntityScan(basePackages = {
+        "hugo.learning.java.*"
+})
+@EnableJpaRepositories(basePackages = {
+        "hugo.learning.java.*"
+})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

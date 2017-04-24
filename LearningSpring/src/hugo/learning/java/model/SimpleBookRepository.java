@@ -5,7 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -22,7 +25,7 @@ public class SimpleBookRepository implements BookRepository {
     @Cacheable(value = "books", keyGenerator = "bookKeyGenerator")
     public Book getByIsbn(String isbn) {
         simulateSlowService();
-        return new Book(isbn, "Some book");
+        return new Book(isbn, "Some book", BigDecimal.ONE);
     }
 
     @Override

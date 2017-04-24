@@ -1,12 +1,17 @@
 package hugo.learning.java.spring;
 
+import hugo.learning.java.model.Book;
 import hugo.learning.java.model.BookRepository;
+import hugo.learning.java.model.CrudBookRepo;
 import hugo.learning.java.services.Calculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public abstract class AppRunner implements CommandLineRunner {
@@ -41,4 +46,10 @@ public abstract class AppRunner implements CommandLineRunner {
         logger.info("isbn-1234 -->" + repo.getByIsbn("isbn-1234"));
     }
 
+    @Bean
+    public CommandLineRunner runCrudBookRepo(CrudBookRepo repo) {
+        return (args) -> {
+            repo.save(new Book("0", "Hugo", BigDecimal.valueOf(0.1)));
+        };
+    }
 }
