@@ -6,17 +6,21 @@ import hugo.learning.java.model.CrudBookRepo;
 import hugo.learning.java.services.Calculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Component
 public abstract class AppRunner implements CommandLineRunner {
-
     private static final Logger logger = LoggerFactory.getLogger(AppRunner.class);
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     @Lookup
     public abstract BookRepository getBookRepository();
@@ -47,9 +51,17 @@ public abstract class AppRunner implements CommandLineRunner {
     }
 
     @Bean
+    public CommandLineRunner setupH2Database() {
+        return args -> {
+            logger.info(System.getProperty("user.dir"));
+        };
+    }
+
+    @Bean
     public CommandLineRunner runCrudBookRepo(CrudBookRepo repo) {
         return (args) -> {
             repo.save(new Book("0", "Hugo", BigDecimal.valueOf(0.1)));
+            System.in.read();
         };
     }
 }

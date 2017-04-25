@@ -15,10 +15,12 @@ import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.EntryUnit;
 import org.ehcache.jsr107.Eh107Configuration;
 
+import org.h2.server.web.WebServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
@@ -63,6 +65,13 @@ public class Application {
             final Cache cache = createCacheViaJCacheAPI(cacheManager, Object.class, Object.class);
             configEhCacheViaCode(cache);
         };
+    }
+
+    @Bean
+    ServletRegistrationBean h2servletRegistration(){
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
+        registrationBean.addUrlMappings("/console/*");
+        return registrationBean;
     }
 
     private <K, V> Cache<K, V> createCacheViaJCacheAPI(final CacheManager manager, Class<K> keyClass, Class<V> valueClass) {
